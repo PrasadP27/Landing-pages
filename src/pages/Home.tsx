@@ -4,9 +4,39 @@ import "slick-carousel/slick/slick-theme.css";
 import CustomButton from "../componets/ui/CustomButton";
 import Seprator from "../componets/ui/Seprator";
 import { cards, settings, testimonials } from "../data/data";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 
 function Home() {
+  const heroImageRef = useRef(null);
+  const footerImageRef = useRef(null);
+  const translateRef = useRef(null);
+
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroImageRef,
+    offset: ["start center", "end start"],
+  });
+
+  const { scrollYProgress: footerScroll } = useScroll({
+    target: footerImageRef,
+    offset: ["start end", "end start"],
+  });
+
+  const heroY = useTransform(heroScroll, [0, 1], [0, -80]);
+  const heroScale = useTransform(heroScroll, [0, 1], [1, 1.1]);
+
+  const footerScale = useTransform(footerScroll, [0, 1], [1, 1.1]);
+
+  // translateDown
+  const { scrollYProgress: translateDownYProgress } = useScroll({
+    target: translateRef,
+    offset: ["start end", "end start"],
+  });
+  const transalteDownAni = useTransform(
+    translateDownYProgress,
+    [0, 1],
+    [-100, 100],
+  );
   return (
     <>
       {/* hero section  */}
@@ -31,8 +61,10 @@ function Home() {
           <CustomButton data="Explore" />
 
           <motion.img
+            ref={heroImageRef}
+            style={{ y: heroY, scale: heroScale }}
             initial={{ opacity: "0%" }}
-            whileInView={{
+            animate={{
               opacity: 1,
             }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
@@ -44,7 +76,11 @@ function Home() {
       </section>
 
       <section className="p-8 py-36 text-center">
-        <div className="max-width">
+        <motion.div
+          className="max-width"
+          ref={translateRef}
+          style={{ y: transalteDownAni }}
+        >
           <span className="text-text-light text-lg"> The Concept </span>
 
           <motion.h3
@@ -62,7 +98,7 @@ function Home() {
             components, it’s engineered to deliver confidence and control across
             every terrain from steep climbs to fast descents
           </motion.h3>
-        </div>
+        </motion.div>
       </section>
 
       <Seprator />
@@ -159,8 +195,10 @@ function Home() {
       <section className="bg-lightgray relative rounded-[3rem] p-8 pb-16 text-center">
         <div className="max-width relative text-center">
           <motion.img
+            ref={footerImageRef}
+            style={{ scale: footerScale }}
             initial={{ opacity: "0%" }}
-            whileInView={{
+            animate={{
               opacity: 1,
             }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}

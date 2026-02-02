@@ -4,11 +4,28 @@ import {
   AnimatePresence,
   type Variants,
   cubicBezier,
+  useScroll,
+  useTransform,
 } from "motion/react";
 import CustomButton from "./ui/CustomButton";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { scrollY } = useScroll();
+
+  // color change when reaches certain scroll value
+  const headerTextColor = useTransform(
+    scrollY,
+    [900, 950, 4380, 4430],
+    ["#111", "#e5e5e5", "#e5e5e5", "#111"],
+  );
+
+  const buttonIconColor = useTransform(
+    scrollY,
+    [900, 950, 4380, 4430],
+    ["#ffffff", "#111111", "#111111", "#ffffff"],
+  );
 
   // Menu slide animation
   const menuVariants: Variants = {
@@ -66,9 +83,12 @@ function Header() {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 mx-auto flex max-w-[1400px] items-center justify-between px-12 py-8">
       {/* Logo */}
-      <span className="text-dark text-4xl font-black tracking-tight uppercase">
+      <motion.span
+        style={{ color: headerTextColor }}
+        className="text-dark text-4xl font-black tracking-tight uppercase"
+      >
         Vertx
-      </span>
+      </motion.span>
 
       {/* Hamburger Button */}
       <div className="text-light">
@@ -79,7 +99,8 @@ function Header() {
             transition: { duration: 1, ease: "linear" },
           }}
           transition={{ duration: 0.5 }}
-          className="bg-darkgray text-light cursor-pointer p-4"
+          style={{ backgroundColor: headerTextColor, color: buttonIconColor }}
+          className="text-light cursor-pointer p-4"
           onClick={() => setIsOpen(true)}
         >
           <svg
@@ -128,9 +149,8 @@ function Header() {
                   {links.map((link, i) => (
                     <motion.a
                       key={link.title}
-                      className="text-light text-[2.8rem] font-medium uppercase transition hover:opacity-70"
+                      className="text-light cursor-pointer text-[2.8rem] font-medium uppercase transition hover:opacity-70"
                       variants={linkVariant}
-                      // onClick={() => setIsOpen(false)}
                     >
                       <span className="text-border-light pr-2 text-sm">
                         0{i}
