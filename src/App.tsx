@@ -1,8 +1,17 @@
+import Footer from "./componets/Footer";
+import Header from "./componets/Header";
+
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <div className="flex bg-black">
-      <h1>APP</h1>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Home />
+      </main>
+      <Footer />
+    </>
   );
 }
 
