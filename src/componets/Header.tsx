@@ -5,6 +5,7 @@ import {
   type Variants,
   cubicBezier,
 } from "motion/react";
+import CustomButton from "./ui/CustomButton";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,10 +58,9 @@ function Header() {
   };
 
   const links = [
-    { title: "Projects", href: "/" },
-    { title: "Agency", href: "/agency" },
-    { title: "Expertise", href: "/expertise" },
-    { title: "Contact", href: "/contact" },
+    { title: "Home", target: "#home" },
+    { title: "features", target: "#features" },
+    { title: "Reviews", target: "#reviews" },
   ];
 
   return (
@@ -110,7 +110,7 @@ function Header() {
             >
               {/* Side Menu */}
               <motion.div
-                className="bg-dark ml-auto h-full w-[30vw] min-w-[20rem] rounded-tl-3xl rounded-bl-3xl p-12"
+                className="bg-dark ml-auto flex h-full w-[30vw] min-w-[20rem] flex-col justify-between rounded-tl-3xl rounded-bl-3xl p-12"
                 variants={menuVariants}
                 initial="hidden"
                 animate="visible"
@@ -119,7 +119,7 @@ function Header() {
               >
                 {/* Links with stagger */}
                 <motion.nav
-                  className="mt-20 flex flex-col gap-6"
+                  className="mt-5 flex flex-col gap-6"
                   variants={linksContainer}
                   initial="hidden"
                   animate="visible"
@@ -128,7 +128,6 @@ function Header() {
                   {links.map((link, i) => (
                     <motion.a
                       key={link.title}
-                      href={link.href}
                       className="text-light text-[2.8rem] font-medium uppercase transition hover:opacity-70"
                       variants={linkVariant}
                       // onClick={() => setIsOpen(false)}
@@ -140,6 +139,8 @@ function Header() {
                     </motion.a>
                   ))}
                 </motion.nav>
+
+                <CustomButton data="Explore" type="dark" />
               </motion.div>
             </motion.div>
           )}

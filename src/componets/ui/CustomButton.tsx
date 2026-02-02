@@ -1,6 +1,20 @@
 import { motion } from "motion/react";
 
-function CustomButton({ data }: { data: string }) {
+type ButtonType = "light" | "dark";
+
+function CustomButton({
+  data,
+  type = "light",
+}: {
+  data: string;
+  type?: ButtonType;
+}) {
+  const baseClasses =
+    "cursor-pointer rounded-2xl border-2 px-8 py-5 font-semibold tracking-widest uppercase";
+
+  const variantClasses =
+    type === "dark" ? "border-gray text-lightgray" : "border-gray text-dark";
+
   return (
     <motion.button
       initial={{ borderRadius: 16 }}
@@ -9,7 +23,7 @@ function CustomButton({ data }: { data: string }) {
         transition: { duration: 1, ease: "linear" },
       }}
       transition={{ duration: 0.5 }}
-      className="border-gray cursor-pointer rounded-2xl border-2 px-8 py-5 font-semibold tracking-widest uppercase"
+      className={`${baseClasses} ${variantClasses}`}
     >
       {data}
     </motion.button>

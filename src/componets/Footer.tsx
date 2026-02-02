@@ -8,7 +8,7 @@ function Footer() {
         <div className="flex items-center justify-between py-12">
           <p className="text-lightgray">Prasad Panchal @ 2026</p>
 
-          <CustomButton data="Order now" />
+          <CustomButton data="Order now" type="dark" />
         </div>
 
         <div className="mb-20">
