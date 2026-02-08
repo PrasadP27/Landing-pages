@@ -35,7 +35,7 @@ function Home() {
   const transalteDownAni = useTransform(
     translateDownYProgress,
     [0, 1],
-    [-100, 100],
+    [-100, 80],
   );
   return (
     <>
@@ -70,7 +70,7 @@ function Home() {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             src="https://www.yt-industries.com/_ipx/f_webp&s_2300x1400/https://www.yt-industries.com/media/be/1b/b1/1747664007/JEFFSY-29-CF-MY25-Core4-FogGreen_Side.png%3Fts=1747664007%3Fwidth=1000%26fit=crop,smart"
             alt=""
-            className="mx-auto w-[60%]"
+            className="mx-auto min-h-125 w-[60%]"
           />
         </div>
       </section>
